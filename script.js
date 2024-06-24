@@ -22,12 +22,9 @@ $(document).ready(function () {
     $("html").css("scrollBehavior", "auto");
   });
 
-  // typing text animation script
-  var typed = new Typed(".typing", {
-    strings: ["Developer", "Designer", "Freelancer", "Photographer"],
-    typeSpeed: 100,
-    backSpeed: 60,
-    loop: true,
+  $(".navbar .menu li a").click(function () {
+    // applying again smooth scroll on menu items click
+    $("html").css("scrollBehavior", "smooth");
   });
 
   // toggle menu/navbar script
@@ -36,34 +33,32 @@ $(document).ready(function () {
     $(".menu-btn i").toggleClass("active");
   });
 
-  // owl carousel script
-  $(".carousel").owlCarousel({
-    margin: 20,
+  // typing text animation script
+  var typed = new Typed(".typing", {
+    strings: ["Business Analyst", "Data Analyst"],
+    typeSpeed: 100,
+    backSpeed: 60,
     loop: true,
-    autoplay: true,
-    autoplayTimeOut: 2000,
-    autoplayHoverPause: true,
-    responsive: {
-      0: {
-        items: 1,
-        nav: false,
-      },
-      600: {
-        items: 2,
-        nav: false,
-      },
-      1000: {
-        items: 3,
-        nav: false,
-      },
-    },
   });
 
-  // download counter script
-  let downloadCount = 0;
-  $('#downloadCV').click(function () {
+  // Counter variable
+  var downloadCount = localStorage.getItem("downloadCount") || 0;
+
+  // Display download count
+  $(".download-count").text(downloadCount);
+
+  // CV download button click event
+  $("#downloadCV").click(function () {
+    // Increment download count
     downloadCount++;
-    $('.download-count').text(downloadCount);
-    $('.download-message').addClass('show');
+    // Update UI
+    $(".download-count").text(downloadCount);
+    // Save count to local storage
+    localStorage.setItem("downloadCount", downloadCount);
+    // Show and hide the message
+    $(".download-message").addClass("show");
+    setTimeout(function () {
+      $(".download-message").removeClass("show");
+    }, 5000); // 5000 milliseconds (5 seconds)
   });
 });
